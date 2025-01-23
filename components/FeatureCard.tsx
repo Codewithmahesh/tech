@@ -100,10 +100,6 @@ const FeaturesSection = () => {
     },
   ];
 
-  function setActiveFeature(index: number): void {
-    throw new Error("Function not implemented.");
-  }
-
   return (
     <section
       ref={sectionRef}
@@ -138,7 +134,7 @@ const FeaturesSection = () => {
                 }
                 ${`delay-[${index * 100}ms]`}
                 hover:-translate-y-2 hover:shadow-xl`}
-              onMouseEnter={() => setActiveFeature(index)}
+              // onMouseEnter={() => setActiveFeature(index)}
             >
               <div className="flex items-center mb-6">
                 <div className="p-3 rounded-lg bg-blue-50">
