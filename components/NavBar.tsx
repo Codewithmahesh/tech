@@ -2,6 +2,7 @@
 import { useState, useEffect } from "react";
 import { Menu, X, ChevronDown } from "lucide-react";
 import Link from "next/link";
+import { BiLogoRedux } from "react-icons/bi"; // Importing the Redux logo
 
 const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -53,8 +54,13 @@ const Navbar = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between">
           {/* Logo */}
-          <div className="flex-shrink-0">
-            <h1 className="text-2xl font-bold text-white">RealityCards</h1>
+          <div className="flex-shrink-0 flex items-center">
+            {/* Rotating Redux Icon */}
+            <BiLogoRedux
+              className="text-white text-4xl animate-spin-slow"
+              title="Redux Logo"
+            />
+            <h1 className="text-2xl font-bold text-white tracking-wider ml-3">Atomix</h1>
           </div>
 
           {/* Desktop Menu */}

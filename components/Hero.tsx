@@ -223,7 +223,7 @@ const LandingSection: React.FC = () => {
   ];
 
   return (
-    <section className="fixed top-0 left-0 w-full h-screen flex items-center justify-center overflow-auto">
+    <section className="fixed top-0 left-0 w-full h-screen flex items-center justify-center overflow-hidden">
       <div className="absolute inset-0 w-full h-full -z-10 overflow-auto bg-gradient-to-br from-black to-purple-900">
         <AnimatedGrid />
         <Stars />
@@ -246,20 +246,7 @@ const LandingSection: React.FC = () => {
             <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold tracking-wider">
               TechFront Solutions
             </h1>
-            {/* <p className="text-lg sm:text-xl md:text-2xl text-gray-300">
-              Pioneering the Future of Technology
-            </p> */}
           </motion.div>
-
-          {/* <motion.p
-            initial={{ y: 20, opacity: 0 }}
-            animate={{ y: 0, opacity: 1 }}
-            transition={{ duration: 0.8, delay: 0.2 }}
-            className="mt-6 text-base sm:text-lg md:text-xl max-w-3xl mx-auto text-gray-300"
-          >
-            Integrating AR/VR, Nanotechnology, and Advanced AI Solutions for
-            Next-Generation Innovation
-          </motion.p> */}
 
           <motion.div
             className="flex flex-col sm:flex-row gap-4 justify-center mt-8"
@@ -270,7 +257,7 @@ const LandingSection: React.FC = () => {
             <motion.button
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
-              className="px-6 py-3  sm:px-8 sm:py-4 bg-purple-600 hover:bg-purple-700 rounded-full font-thin
+              className="px-6 py-3 sm:px-8 sm:py-4 bg-purple-600 hover:bg-purple-700 rounded-full font-thin
                transition-colors text-lg tracking:wide sm:text-base"
             >
               Explore Solutions
@@ -285,11 +272,12 @@ const LandingSection: React.FC = () => {
           </motion.div>
         </div>
 
+        {/* Proficiency cards now only show on lg screens and above */}
         <motion.div
           variants={staggerContainer}
           initial="hidden"
           animate="visible"
-          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 lg:gap-8 px-4 sm:px-6 lg:px-8"
+          className="hidden lg:grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 lg:gap-8 px-4 sm:px-6 lg:px-8"
         >
           {proficiencies.map((prof, index) => (
             <ProficiencyCard key={index} proficiency={prof} index={index} />
@@ -297,7 +285,7 @@ const LandingSection: React.FC = () => {
         </motion.div>
 
         <motion.div
-          className="mt-8 text-center left-0 bottom-8 top-0 "
+          className="mt-8 text-center"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 1.5 }}
