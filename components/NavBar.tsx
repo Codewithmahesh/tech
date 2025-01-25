@@ -23,9 +23,9 @@ const Navbar = () => {
     {
       name: "Solutions",
       submenu: [
-        { name: "Gaming", href: "/solutions/gaming" },
-        { name: "Education", href: "/solutions/education" },
-        { name: "Enterprise", href: "/solutions/enterprise" },
+        { name: "Gaming", href: "/Solutions/Gaming" },
+        { name: "Education", href: "/Solutions/Education" },
+        { name: "Enterprise", href: "/Solutions/Enterprise" },
       ],
     },
     { name: "Pricing", href: "/pricing" },
@@ -60,7 +60,9 @@ const Navbar = () => {
               className="text-white text-4xl animate-spin-slow"
               title="Redux Logo"
             />
-            <h1 className="text-2xl font-bold text-white tracking-wider ml-3">Atomix</h1>
+            <h1 className="text-2xl font-bold text-white tracking-wider ml-3">
+              Atomix
+            </h1>
           </div>
 
           {/* Desktop Menu */}
