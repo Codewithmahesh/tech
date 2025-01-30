@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { motion } from "framer-motion";
-import { ChevronRight, Star, Sparkles, Shield } from "lucide-react";
+import { ChevronRight } from "lucide-react";
 
 const HeroSection = () => {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });

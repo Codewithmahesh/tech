@@ -1,6 +1,6 @@
 "use client";
 import React, { useEffect, useState, useRef } from "react";
-import { Box, Eye, Smartphone, Zap, Crown, Gift, Code, Share2, Shield } from "lucide-react";
+import { Box, Eye, Smartphone, Code, Share2, Shield } from "lucide-react";
 
 const EnhancedSection = () => {
   const [isVisible, setIsVisible] = useState(false);

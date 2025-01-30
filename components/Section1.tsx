@@ -28,7 +28,7 @@ const HeroSection = () => {
   }, []);
 
   useEffect(() => {
-    const handleMouseMove = (e: { clientX: any; clientY: any }) => {
+    const handleMouseMove = (e: MouseEvent) => {
       setMousePosition({ x: e.clientX, y: e.clientY });
     };
 

@@ -2,8 +2,6 @@
 import { useState, useEffect } from "react";
 import { Menu, X, ChevronDown } from "lucide-react";
 import Link from "next/link";
-import { BiLogoRedux } from "react-icons/bi"; // Importing the Redux logo
-import Image from "next/image"; // Importing the Image component from next/image
 
 const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);

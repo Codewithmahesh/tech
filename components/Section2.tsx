@@ -67,7 +67,7 @@ const HeroSection = () => {
             { Icon: Building2, text: "3D Models" },
             { Icon: Building2, text: "AR Preview" },
             { Icon: Home, text: "Real-time Viewing" }
-          ].map(({ Icon, text }, index) => (
+          ].map(({ Icon, text }) => (
             <motion.div
               key={text}
               whileHover={{ scale: 1.05 }}
