@@ -1,7 +1,7 @@
 "use client";
 import React, { useEffect, useState, useRef } from "react";
 import { ArrowRight, ScanLine, Layers, PlayCircle } from "lucide-react";
-import CircuitPattern from "./CircuitPattern";
+import CircuitPattern from "../CircuitPattern";
 import Link from "next/link";
 
 const HeroSection = () => {

@@ -1,10 +1,10 @@
 "use client";
 import React, { useEffect, useState, useRef } from "react";
-import { Box, Eye, Smartphone, Code, Share2, Shield } from "lucide-react";
+import { Code, Share2, Shield } from "lucide-react";
+import DemoCards from "./DEmoCards";
 
 const EnhancedSection = () => {
   const [isVisible, setIsVisible] = useState(false);
-  const [activeCard, setActiveCard] = useState<number | null>(null);
   const sectionRef = useRef(null);
 
   useEffect(() => {
@@ -28,32 +28,6 @@ const EnhancedSection = () => {
     };
   }, []);
 
-  const demoCards = [
-    {
-      title: "3D Product Viewer",
-      description:
-        "Immersive 3D visualization for your products with real-time interaction",
-      icon: Box,
-      gradient: "from-blue-500 to-blue-600",
-      bgGlow: "group-hover:shadow-blue-500/30",
-    },
-    {
-      title: "Interactive Catalog",
-      description:
-        "Digital catalog enhanced with AR previews and live product demonstrations",
-      icon: Eye,
-      gradient: "from-purple-500 to-purple-600",
-      bgGlow: "group-hover:shadow-purple-500/30",
-    },
-    {
-      title: "Virtual Try-On",
-      description:
-        "Revolutionary AR try-on experience for seamless product visualization",
-      icon: Smartphone,
-      gradient: "from-indigo-500 to-indigo-600",
-      bgGlow: "group-hover:shadow-indigo-500/30",
-    },
-  ];
 
   const features = [
     {
@@ -146,67 +120,8 @@ const EnhancedSection = () => {
           </div>
         </div>
 
-        {/* Demo Cards Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-20">
-          {demoCards.map((card, index) => (
-            <div
-              key={card.title}
-              className={`group relative transition-all duration-700 ease-out transform 
-                ${
-                  isVisible
-                    ? "opacity-100 translate-y-0"
-                    : "opacity-0 translate-y-10"
-                }
-                ${`delay-[${index * 200}ms]`}`}
-              onMouseEnter={() => setActiveCard(index)}
-              onMouseLeave={() => setActiveCard(null)}
-            >
-              <div
-                className={`relative bg-white rounded-2xl p-8 h-full transition-all duration-500 
-                transform group-hover:-translate-y-2 group-hover:shadow-xl ${card.bgGlow}
-                border border-gray-100`}
-              >
-                <div
-                  className={`absolute inset-x-0 -top-px h-px w-full bg-gradient-to-r ${
-                    card.gradient
-                  } 
-                  transform origin-left transition-transform duration-500 
-                  ${activeCard === index ? "scale-x-100" : "scale-x-0"}`}
-                />
-
-                <div
-                  className={`p-4 rounded-lg bg-gradient-to-br ${card.gradient} 
-                  text-white inline-block mb-6 transition-transform duration-300 
-                  group-hover:scale-110`}
-                >
-                  <card.icon className="w-8 h-8" />
-                </div>
-
-                <h3 className="text-2xl font-bold text-gray-900 mb-4">
-                  {card.title}
-                </h3>
-                <p className="text-gray-600">{card.description}</p>
-
-                <div className="mt-6 flex items-center text-sm font-medium text-blue-600 group-hover:text-blue-500">
-                  Try Demo
-                  <svg
-                    className="ml-2 w-4 h-4 transition-transform duration-300 group-hover:translate-x-1"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth="2"
-                      d="M9 5l7 7-7 7"
-                    />
-                  </svg>
-                </div>
-              </div>
-            </div>
-          ))}
-        </div>
+       {/* Demo Card Grid */}
+       <DemoCards />
 
         {/* Features Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
