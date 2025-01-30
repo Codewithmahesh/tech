@@ -1,98 +1,12 @@
-"use client";
-import Link from "next/link";
 import React, { useEffect, useState, useRef } from "react";
-import { motion, AnimatePresence } from "framer-motion";
-import CircuitPattern from "./CircuitPattern";
+import { motion } from "framer-motion";
+import { Globe, Cpu, Headset, Users } from "lucide-react";
+import Link from "next/link";
 
-const Section = () => {
+const HeroSection = () => {
   const [isVisible, setIsVisible] = useState(false);
-  const [transformStage, setTransformStage] = useState(0);
-  const [isMobile, setIsMobile] = useState(false);
+  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const sectionRef = useRef(null);
-
-  const features = [
-    {
-      title: "Virtual Reality",
-      description: "Immerse yourself in stunning digital environments",
-      delay: "delay-[100ms]",
-
-      svg: (
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          fill="none"
-          viewBox="0 0 24 24"
-          strokeWidth="2"
-          stroke="currentColor"
-          className="w-16 h-16 text-purple-900"
-        >
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            d="M9.75 3v4.5m4.5-4.5v4.5m-6 12h7.5a3 3 0 003-3v-3h-4.5M5.25 9H15m3.75 0H21M3 12h3m6 6v3m0-3H9m0 0v-3m3 3h3"
-          />
-        </svg>
-      ),
-    },
-    {
-      title: "Augmented Reality",
-      description: "Blend digital content with your physical world",
-      delay: "delay-[200ms]",
-      svg: (
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          fill="none"
-          viewBox="0 0 24 24"
-          strokeWidth="2"
-          stroke="currentColor"
-          className="w-16 h-16 text-blue-700"
-        >
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            d="M12 3.5v4M9.5 8.5L12 11l2.5-2.5M12 16.5v4m2.5-2.5L12 14l-2.5 2.5"
-          />
-        </svg>
-      ),
-    },
-    {
-      title: "Mixed Reality",
-      description: "Experience seamless digital-physical integration",
-      delay: "delay-[300ms]",
-      svg: (
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          fill="none"
-          viewBox="0 0 24 24"
-          strokeWidth="2"
-          stroke="currentColor"
-          className="w-16 h-16 text-cyan-500"
-        >
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            d="M5.25 9v4.5m13.5-4.5V15M3 15.75h18M3 8.25h18m-9-4.5v4.5m0 0l2.25 2.25m-4.5 0L12 8.25"
-          />
-        </svg>
-      ),
-    },
-  ];
-
-  useEffect(() => {
-    const checkMobile = () => setIsMobile(window.innerWidth <= 1024);
-    checkMobile();
-    window.addEventListener("resize", checkMobile);
-    return () => window.removeEventListener("resize", checkMobile);
-  }, []);
-
-  useEffect(() => {
-    if (isMobile) {
-      const intervalId = setInterval(() => {
-        setTransformStage((prev) => (prev + 1) % features.length);
-      }, 2000);
-
-      return () => clearInterval(intervalId);
-    }
-  }, [isMobile, features.length]);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -113,141 +27,175 @@ const Section = () => {
     };
   }, []);
 
-  const renderCard = (stage: number) => {
-    const currentStage = features[stage];
+  useEffect(() => {
+    const handleMouseMove = (e: { clientX: any; clientY: any }) => {
+      setMousePosition({ x: e.clientX, y: e.clientY });
+    };
 
-    return (
-      <AnimatePresence mode="wait">
-        <motion.div
-          key={stage}
-          initial={{ opacity: 0, scale: 0.9 }}
-          animate={{
-            opacity: 1,
-            scale: 1,
-            transition: { duration: 0.5 },
-          }}
-          exit={{
-            opacity: 0,
-            scale: 0.9,
-            transition: { duration: 0.5 },
-          }}
-          className={`absolute w-full h-full bg-white rounded-2xl shadow-2xl flex flex-col justify-center items-center p-8`}
-        >
-          {currentStage.svg}
-          <h2 className="text-2xl font-semibold mb-4 text-gray-800">
-            {currentStage.title}
-          </h2>
-          <p className="text-center text-gray-600">
-            {currentStage.description}
-          </p>
-        </motion.div>
-      </AnimatePresence>
-    );
-  };
+    window.addEventListener("mousemove", handleMouseMove);
+    return () => window.removeEventListener("mousemove", handleMouseMove);
+  }, []);
+
+  const features = [
+    {
+      icon: <Headset className="w-8 sm:w-10 h-8 sm:h-10" />,
+      title: "Virtual Reality",
+      description:
+        "Step into immersive 3D worlds with cutting-edge VR technology.",
+      color: "from-purple-600 to-purple-400",
+      gradient:
+        "bg-gradient-to-br from-purple-500/10 via-purple-500/5 to-transparent",
+      border: "border-purple-500/20",
+      stats: "200K+ Active Users",
+    },
+    {
+      icon: <Globe className="w-8 sm:w-10 h-8 sm:h-10" />,
+      title: "Digital World",
+      description:
+        "Explore endless possibilities in our expansive digital universe.",
+      color: "from-blue-600 to-blue-400",
+      gradient:
+        "bg-gradient-to-br from-blue-500/10 via-blue-500/5 to-transparent",
+      border: "border-blue-500/20",
+      stats: "1000+ Worlds",
+    },
+    {
+      icon: <Users className="w-8 sm:w-10 h-8 sm:h-10" />,
+      title: "Social Connection",
+      description:
+        "Connect with a global community in real-time virtual spaces.",
+      color: "from-cyan-600 to-cyan-400",
+      gradient:
+        "bg-gradient-to-br from-cyan-500/10 via-cyan-500/5 to-transparent",
+      border: "border-cyan-500/20",
+      stats: "50K+ Daily Users",
+    },
+    {
+      icon: <Cpu className="w-8 sm:w-10 h-8 sm:h-10" />,
+      title: "AI Integration",
+      description:
+        "Experience next-gen AI-powered interactions and experiences.",
+      color: "from-indigo-600 to-indigo-400",
+      gradient:
+        "bg-gradient-to-br from-indigo-500/10 via-indigo-500/5 to-transparent",
+      border: "border-indigo-500/20",
+      stats: "24/7 Support",
+    },
+  ];
 
   return (
     <section
       ref={sectionRef}
-      className="relative min-h-screen w-full bg-white overflow-y-auto"
+      className="relative min-h-screen w-full overflow-hidden bg-gradient-to-br from-black via-gray-900 to-purple-900"
     >
-      <CircuitPattern />
-      <div className="absolute inset-0 bg-gradient-to-br from-blue-50/50 via-transparent to-purple-50/50" />
+      {/* Background Elements */}
+      <div className="absolute inset-0 bg-grid-white/[0.02] bg-[size:30px_30px] sm:bg-[size:50px_50px]" />
+      <div
+        className="absolute inset-0 overflow-hidden"
+        style={{
+          transform: `translate(${mousePosition.x * 0.01}px, ${
+            mousePosition.y * 0.01
+          }px)`,
+        }}
+      >
+        <div className="absolute top-1/4 left-1/4 w-48 sm:w-96 h-48 sm:h-96 bg-purple-500/30 rounded-full blur-3xl" />
+        <div className="absolute top-1/3 right-1/4 w-48 sm:w-96 h-48 sm:h-96 bg-blue-500/30 rounded-full blur-3xl" />
+      </div>
 
-      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 sm:py-28 lg:py-32">
-        <div className="flex items-center justify-start max-w-7xl mx-auto sm:mb-10 md:mb-16 lg:mb-24">
-          <div className="flex flex-col justify-center items-center gap-6">
+      <div className="relative mt-5 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-20">
+        <div className="flex flex-col items-center justify-center min-h-[80vh] gap-8 sm:gap-12">
+          {/* Main Content */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: isVisible ? 1 : 0, y: isVisible ? 0 : 20 }}
+            transition={{ duration: 0.8 }}
+            className="text-center space-y-6 sm:space-y-8 max-w-4xl"
+          >
             <motion.h1
-              initial={{ opacity: 0, y: 50 }}
-              animate={{
-                opacity: isVisible ? 1 : 0,
-                y: isVisible ? 0 : 50,
-              }}
-              transition={{ duration: 0.5 }}
-              className="text-5xl sm:text-5xl md:text-5xl lg:text-7xl font-thin tracking-wide mb-8 
-              leading-[1.2] sm:leading-[1.1] lg:leading-[1.2] 
-              px-4 sm:px-8 lg:px-12 text-left"
-            >
-              <span className="bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-purple-600">
-                Engage with the Future of Reality
-              </span>
-            </motion.h1>
-            <motion.div
-              initial={{ opacity: 0, scale: 0.9 }}
-              animate={{
-                opacity: isVisible ? 1 : 0,
-                scale: isVisible ? 1 : 0.9,
-              }}
-              transition={{ duration: 0.5, delay: 0.2 }}
-            >
-              <Link
-                href="/Reality"
-                className="inline-flex items-center px-8 py-4 text-lg font-semibold text-white
-                bg-gradient-to-r from-blue-600 to-purple-600 rounded-full
-                transform transition-all duration-300
-                hover:scale-105 hover:shadow-lg hover:shadow-blue-500/25
-                focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
-              >
-                Explore the Technology
-                <svg
-                  className="ml-2 w-5 h-5 animate-pulse"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth="2"
-                    d="M13 7l5 5m0 0l-5 5m5-5H6"
-                  />
-                </svg>
-              </Link>
-            </motion.div>
-          </div>
-        </div>
-
-        {/* Mobile Slider */}
-        <div className="block lg:hidden relative w-full h-[500px] flex justify-center items-center">
-          <div className="relative w-full max-w-sm h-96">
-            {renderCard(transformStage)}
-          </div>
-        </div>
-
-        {/* Desktop Grid */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{
-            opacity: isVisible ? 1 : 0,
-            y: isVisible ? 0 : 20,
-          }}
-          transition={{ duration: 0.5, delay: 0.3 }}
-          className="hidden md:grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16"
-        >
-          {features.map((feature) => (
-            <motion.div
-              key={feature.title}
+              className="text-4xl sm:text-5xl md:text-7xl font-semibold text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-purple-400 to-pink-400 px-4 sm:px-0"
               initial={{ opacity: 0, y: 20 }}
-              animate={{
-                opacity: isVisible ? 1 : 0,
-                y: isVisible ? 0 : 20,
-              }}
-              transition={{
-                duration: 0.5,
-                delay: isVisible ? 0.2 : 0,
-              }}
-              className={`p-6 rounded-2xl shadow-2xl text-left bg-gradient-to-b text-black`}
+              animate={{ opacity: isVisible ? 1 : 0, y: isVisible ? 0 : 20 }}
+              transition={{ duration: 0.8, delay: 0.4 }}
             >
-              {feature.svg}
-              <h2 className="text-2xl font-normal mt-2  mb-4">
-                {feature.title}
-              </h2>
-              <p>{feature.description}</p>
+              Metaverse Revolution
+              <br />
+              with Atomix
+            </motion.h1>
+            <motion.p
+              className="text-lg sm:text-xl md:text-2xl text-gray-300 max-w-3xl mx-auto px-4 sm:px-6"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: isVisible ? 1 : 0, y: isVisible ? 0 : 20 }}
+              transition={{ duration: 0.8, delay: 0.6 }}
+            >
+              Experience a revolutionary platform where virtual and physical
+              worlds converge.
+            </motion.p>
+
+            {/* CTA Buttons */}
+            <motion.div
+              className="flex flex-col sm:flex-row justify-center gap-4 px-4 sm:px-0"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: isVisible ? 1 : 0, y: isVisible ? 0 : 20 }}
+              transition={{ duration: 0.8, delay: 0.8 }}
+            >
+              <Link href="/Reality" className="w-full sm:w-auto">
+                <motion.button
+                  className="w-full sm:w-auto group relative inline-flex items-center justify-center px-6 sm:px-8 py-3 sm:py-4 text-base sm:text-lg font-bold text-white bg-gradient-to-r from-purple-600 to-blue-600 rounded-full hover:scale-105 hover:shadow-lg transition-transform"
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                  aria-label="Explore Technologies"
+                >
+                  Explore Technologies
+                </motion.button>
+              </Link>
+              <motion.button
+                className="w-full sm:w-auto inline-flex items-center justify-center px-6 sm:px-8 py-3 sm:py-4 text-base sm:text-lg font-bold text-white border-2 border-purple-500 rounded-full hover:bg-purple-500/10 transition-all"
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                aria-label="Watch Demo"
+              >
+                Watch Demo
+              </motion.button>
             </motion.div>
-          ))}
-        </motion.div>
+          </motion.div>
+
+          {/* Features Grid */}
+          <motion.div
+            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 w-full mt-8 sm:mt-12 px-4 sm:px-6"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: isVisible ? 1 : 0, y: isVisible ? 0 : 20 }}
+            transition={{ duration: 0.8, delay: 1 }}
+          >
+            {features.map((feature, index) => (
+              <motion.div
+                key={index}
+                className={`relative overflow-hidden ${feature.gradient} backdrop-blur-xl rounded-xl sm:rounded-2xl p-4 sm:p-6 border ${feature.border} group`}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: isVisible ? 1 : 0, y: isVisible ? 0 : 20 }}
+                transition={{ duration: 0.8, delay: 1 + index * 0.1 }}
+              >
+                <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity bg-gradient-to-r from-purple-500/10 to-blue-500/10" />
+                <div
+                  className={`bg-gradient-to-r ${feature.color} p-3 sm:p-4 rounded-lg sm:rounded-xl w-fit mb-3 sm:mb-4 shadow-lg`}
+                >
+                  {feature.icon}
+                </div>
+                <h3 className="text-xl sm:text-2xl font-semibold text-white mb-2">
+                  {feature.title}
+                </h3>
+                <p className="text-sm sm:text-base text-gray-300">
+                  {feature.description}
+                </p>
+                <div className="mt-3 sm:mt-4 text-xs sm:text-sm font-medium text-purple-400">
+                  {feature.stats}
+                </div>
+              </motion.div>
+            ))}
+          </motion.div>
+        </div>
       </div>
     </section>
   );
 };
 
-export default Section;
+export default HeroSection;

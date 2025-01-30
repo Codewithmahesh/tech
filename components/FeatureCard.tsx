@@ -112,12 +112,26 @@ const FeaturesSection = () => {
             isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
           }`}
         >
-          <h2 className="text-4xl font-bold text-gray-900 mb-6">
+          <h1
+            className={`text-5xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-purple-600 mb-6 transition-all duration-1000 ease-out
+            ${
+              isVisible
+                ? "opacity-100 translate-y-0"
+                : "opacity-0 -translate-y-10"
+            }`}
+          >
             Powerful Features for Modern AR Experiences
-          </h2>
-          <p className="text-xl text-gray-600">
+          </h1>
+          <p
+            className={`text-xl text-gray-600 transition-all duration-1000 delay-200 ease-out
+            ${
+              isVisible
+                ? "opacity-100 translate-y-0"
+                : "opacity-0 translate-y-10"
+            }`}
+          >
             Everything you need to create, manage, and scale your AR
-            applications
+            applications{" "}
           </p>
         </div>
 

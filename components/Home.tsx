@@ -6,6 +6,7 @@ import LandingSection from "./Hero";
 
 const ScrollOverlay = () => {
   const [activeSection, setActiveSection] = useState(0);
+  const [isMobileOrTablet, setIsMobileOrTablet] = useState(false);
 
   const sections = [
     {
@@ -23,6 +24,23 @@ const ScrollOverlay = () => {
   ];
 
   useEffect(() => {
+    const checkDevice = () => {
+      setIsMobileOrTablet(window.innerWidth <= 1024);
+    };
+
+    // Initial check
+    checkDevice();
+
+    // Add resize listener
+    window.addEventListener("resize", checkDevice);
+
+    // Cleanup
+    return () => window.removeEventListener("resize", checkDevice);
+  }, []);
+
+  useEffect(() => {
+    if (isMobileOrTablet) return; // Don't add scroll listener for mobile/tablet
+
     const handleScroll = () => {
       const scrollPosition = window.scrollY;
       const windowHeight = window.innerHeight;
@@ -35,12 +53,30 @@ const ScrollOverlay = () => {
 
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
-  }, [sections.length]);
+  }, [sections.length, isMobileOrTablet]);
 
+  // Mobile/Tablet Layout
+  if (isMobileOrTablet) {
+    return (
+      <div className="relative">
+        {/* Regular scroll layout for mobile/tablet */}
+        <section className="min-h-screen bg-gradient-to-br from-black to-purple-900">
+          <LandingSection />
+        </section>
+
+        {sections.map((section, index) => (
+          <section key={index} className={`min-h-screen ${section.bgColor}`}>
+            {section.component}
+          </section>
+        ))}
+      </div>
+    );
+  }
+
+  // Desktop Layout with ScrollOverlay
   return (
     <div className="relative">
       {/* Hero Section */}
-
       <section
         className={`fixed top-0 left-0 w-full h-screen flex items-center justify-center bg-gradient-to-br from-black to-purple-900 text-white transition-opacity duration-500 z-30 ${
           activeSection === 0 ? "opacity-100" : "opacity-0"

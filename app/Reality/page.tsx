@@ -8,6 +8,7 @@ const page = () => {
     <div>
       <HeroSection />
       <InteractiveDemo />
+      <hr />
       <FeaturesSection />
     </div>
   );

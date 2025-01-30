@@ -1,195 +1,109 @@
-import React, { useState, useEffect } from "react";
-import { Layers, Sparkles, Brain, LucideIcon } from "lucide-react";
+import React from 'react';
+import { motion } from 'framer-motion';
+import { Building2, Headset, Home } from 'lucide-react';
 
-interface StageConfig {
-  icon: LucideIcon;
-  iconColor: string;
-  bgColor: string;
-  borderColor: string;
-  title: string;
-  description: string;
-}
-
-const AICardEvolution: React.FC = () => {
-  const [transformStage, setTransformStage] = useState<number>(0);
-
-  useEffect(() => {
-    const stages = [0, 1, 2];
-    const intervalId = setInterval(() => {
-      setTransformStage((prev) => (prev + 1) % stages.length);
-    }, 2000);
-
-    return () => clearInterval(intervalId);
-  }, []);
-
-  const stageConfigs: StageConfig[] = [
-    {
-      icon: Layers,
-      iconColor: "text-gray-400",
-      bgColor: "bg-white",
-      borderColor: "border-gray-200",
-      title: "Static Interface",
-      description: "Traditional two-dimensional data visualization",
-    },
-    {
-      icon: Brain,
-      iconColor: "text-blue-500",
-      bgColor: "bg-blue-50",
-      borderColor: "border-blue-200",
-      title: "AI Processing",
-      description: "Intelligent data transformation and analysis",
-    },
-    {
-      icon: Sparkles,
-      iconColor: "text-purple-600",
-      bgColor: "bg-purple-50",
-      borderColor: "border-purple-200",
-      title: "AR-Enhanced Interface",
-      description: "Immersive, interactive multi-dimensional experience",
-    },
-  ];
-
-  const renderCard = (
-    stage: number,
-    isMobile: boolean = false
-  ): React.ReactNode => {
-    const currentStage = stageConfigs[stage];
-    const Icon = currentStage.icon;
-
-    return (
-      <div
-        className={`
-          absolute w-full h-full ${currentStage.bgColor} rounded-2xl shadow-2xl 
-          transition-all duration-1000 flex flex-col justify-center items-center
-          ${
-            stage === transformStage
-              ? "opacity-100 scale-100"
-              : "opacity-0 scale-90"
-          }
-          p-8 ${currentStage.borderColor}
-          ${isMobile ? "max-w-sm" : ""}
-        `}
-      >
-        <Icon
-          className={`
-            w-16 h-16 ${currentStage.iconColor} mb-4 
-            ${
-              stage === 1
-                ? "animate-pulse"
-                : stage === 2
-                ? "animate-bounce"
-                : ""
-            }
-          `}
-        />
-        <h2
-          className={`
-            text-2xl font-semibold mb-4 
-            ${
-              stage === 0
-                ? "text-gray-800"
-                : stage === 1
-                ? "text-blue-900"
-                : "text-purple-900"
-            }
-          `}
-        >
-          {currentStage.title}
-        </h2>
-        <p
-          className={`
-            text-center 
-            ${
-              stage === 0
-                ? "text-gray-600"
-                : stage === 1
-                ? "text-blue-700"
-                : "text-purple-800"
-            }
-          `}
-        >
-          {currentStage.description}
-        </p>
-      </div>
-    );
-  };
-
+const HeroSection = () => {
   return (
-    <section className="relative min-h-screen w-full bg-white flex items-center justify-center py-20 overflow-hidden">
-      {/* Background Grid */}
-      <div className="absolute inset-0 opacity-5">
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          width="100%"
-          height="100%"
-          className="text-blue-100"
+    <div className="relative min-h-screen w-full flex items-center justify-center overflow-hidden">
+      {/* Animated background gradient */}
+      <div className="absolute inset-0 bg-gradient-to-br from-indigo-900 via-purple-900 to-slate-900">
+        {/* Floating geometric shapes */}
+        <div className="absolute inset-0">
+          {[...Array(20)].map((_, i) => (
+            <motion.div
+              key={i}
+              className="absolute w-6 md:w-8 h-6 md:h-8 bg-white/10 rounded-lg"
+              style={{
+                top: `${Math.random() * 100}%`,
+                left: `${Math.random() * 100}%`,
+              }}
+              animate={{
+                y: [0, -20, 0],
+                opacity: [0.5, 0.8, 0.5],
+              }}
+              transition={{
+                duration: 3 + Math.random() * 2,
+                repeat: Infinity,
+                delay: Math.random() * 2,
+              }}
+            />
+          ))}
+        </div>
+      </div>
+
+      {/* Main content */}
+      <div className="relative z-10 text-center px-4 w-full min-h-screen flex flex-col justify-center">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8 }}
+          className="mb-4 md:mb-6"
         >
-          <defs>
-            <pattern
-              id="grid"
-              width="40"
-              height="40"
-              patternUnits="userSpaceOnUse"
+          <h1 className="text-4xl sm:text-5xl md:text-7xl font-bold text-white leading-tight">
+            Experience Real Estate in
+            <span className="bg-gradient-to-r from-blue-400 to-purple-500 text-transparent bg-clip-text block mt-2"> Virtual Reality</span>
+          </h1>
+        </motion.div>
+
+        <motion.p
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.2 }}
+          className="text-lg sm:text-xl md:text-2xl text-gray-300 mb-8 md:mb-12 max-w-3xl mx-auto px-4"
+        >
+          Step into the future of property viewing with immersive AR/VR technology.
+          Tour homes from anywhere in the world.
+        </motion.p>
+
+        {/* Feature icons */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.4 }}
+          className="grid grid-cols-2 md:flex md:flex-wrap justify-center gap-4 md:gap-8 mb-8 md:mb-12 px-4"
+        >
+          {[
+            { Icon: Headset, text: "Virtual Tours" },
+            { Icon: Building2, text: "3D Models" },
+            { Icon: Building2, text: "AR Preview" },
+            { Icon: Home, text: "Real-time Viewing" }
+          ].map(({ Icon, text }, index) => (
+            <motion.div
+              key={text}
+              whileHover={{ scale: 1.05 }}
+              className="flex flex-col items-center gap-2"
             >
-              <path
-                d="M 40 0 L 0 0 0 40"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="0.5"
-              />
-            </pattern>
-          </defs>
-          <rect width="100%" height="100%" fill="url(#grid)" />
-        </svg>
-      </div>
-
-      <div className="relative container mx-auto px-4">
-        {/* Mobile & Tablet View */}
-        <div className="block md:hidden relative w-full h-[500px] flex justify-center items-center">
-          <div className="relative w-full max-w-sm h-96">
-            {stageConfigs.map((_, index) => renderCard(index, true))}
-          </div>
-        </div>
-
-        {/* Desktop View */}
-        <div className="hidden md:grid md:grid-cols-2 gap-8 items-center">
-          <div className="space-y-6 p-6">
-            {stageConfigs.map((stage, index) => (
-              <div
-                key={index}
-                className={`
-                  bg-white rounded-2xl p-6 shadow-xl
-                  ${transformStage === index ? "opacity-100" : "opacity-50"}
-                `}
-              >
-                <h3
-                  className={`
-                    text-2xl font-semibold mb-4 
-                    ${
-                      index === 0
-                        ? "text-gray-800"
-                        : index === 1
-                        ? "text-blue-800"
-                        : "text-purple-800"
-                    }
-                  `}
-                >
-                  {stage.title}
-                </h3>
-                <p>{stage.description}</p>
+              <div className="w-12 h-12 md:w-16 md:h-16 rounded-full bg-white/10 flex items-center justify-center">
+                <Icon className="w-6 h-6 md:w-8 md:h-8 text-white" />
               </div>
-            ))}
-          </div>
+              <span className="text-white text-sm md:text-base">{text}</span>
+            </motion.div>
+          ))}
+        </motion.div>
 
-          <div className="relative w-full h-[600px] flex justify-center items-center">
-            <div className="relative w-full max-w-sm h-96">
-              {stageConfigs.map((_, index) => renderCard(index))}
-            </div>
-          </div>
-        </div>
+        {/* CTA Buttons */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.6 }}
+          className="flex flex-col sm:flex-row justify-center gap-4 px-4"
+        >
+          <motion.button
+            whileHover={{ scale: 1.05 }}
+            className="w-full sm:w-auto px-6 md:px-8 py-3 md:py-4 bg-blue-600 text-white rounded-lg font-bold hover:bg-blue-700 transition-colors text-lg"
+          >
+            Start Virtual Tour
+          </motion.button>
+          <motion.button
+            whileHover={{ scale: 1.05 }}
+            className="w-full sm:w-auto px-6 md:px-8 py-3 md:py-4 bg-white/10 text-white rounded-lg font-bold hover:bg-white/20 transition-colors text-lg"
+          >
+            View Properties
+          </motion.button>
+        </motion.div>
       </div>
-    </section>
+    </div>
   );
 };
 
-export default AICardEvolution;
+export default HeroSection;

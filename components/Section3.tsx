@@ -1,111 +1,105 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { motion } from "framer-motion";
-import { Home, MapPin, Headset } from "lucide-react";
+import { ChevronRight, Star, Sparkles, Shield } from "lucide-react";
 
-const ARVRRealEstateHero = () => {
-  const [isMobile, setIsMobile] = useState(false);
+const HeroSection = () => {
+  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
 
   useEffect(() => {
-    const checkMobile = () => setIsMobile(window.innerWidth <= 768);
-    checkMobile();
-    window.addEventListener("resize", checkMobile);
-    return () => window.removeEventListener("resize", checkMobile);
+    const handleMouseMove = (e: { clientX: number; clientY: number }) => {
+      setMousePosition({
+        x: (e.clientX / window.innerWidth) * 2 - 1,
+        y: (e.clientY / window.innerHeight) * 2 - 1,
+      });
+    };
+
+    window.addEventListener("mousemove", handleMouseMove);
+    return () => window.removeEventListener("mousemove", handleMouseMove);
   }, []);
 
-  const propertyExperiences = [
-    {
-      icon: Home,
-      title: "Virtual Property Tours",
-      description:
-        "Explore detailed 3D walkthroughs of properties from anywhere",
-    },
-    {
-      icon: MapPin,
-      title: "Interactive Neighborhood Insights",
-      description:
-        "Discover local amenities, schools, and community features in real-time",
-    },
-    {
-      icon: Headset,
-      title: "Immersive Design Visualization",
-      description: "Customize and visualize interior designs before purchasing",
-    },
-  ];
-
   return (
-    <section className="relative min-h-screen w-full bg-gradient-to-br from-blue-50 to-purple-50 overflow-hidden">
-      {/* Subtle Background Animation */}
-      <motion.div
-        className="absolute inset-0 opacity-20"
-        animate={{
-          rotate: [0, 5, -5, 0],
-          scale: [1, 1.02, 0.98, 1],
-        }}
-        transition={{
-          duration: 10,
-          repeat: Infinity,
-          ease: "easeInOut",
-        }}
-      >
-        <div className="absolute inset-0 bg-[url('/property-background.svg')] bg-cover opacity-10" />
-      </motion.div>
-
-      <div className="relative container mx-auto px-4 pt-24 pb-12">
-        <div className="text-center mb-16">
-          <motion.h1
-            initial={{ opacity: 0, y: 50 }}
-            animate={{ opacity: 1, y: 0 }}
-            className="text-5xl md:text-6xl font-bold mb-6 bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-purple-600"
-          >
-            Reimagine Real Estate
-          </motion.h1>
-          <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-            Experience properties like never before with cutting-edge AR and VR
-            technology
-          </p>
-        </div>
-
+    <section className="relative min-h-screen overflow-hidden bg-gradient-to-b from-slate-950 to-blue-950">
+      {/* Animated Background Elements */}
+      <div className="absolute inset-0 overflow-hidden">
+        {/* Gradient Orbs */}
         <div
-          className={`
-          grid ${isMobile ? "grid-cols-1 gap-6" : "grid-cols-3 gap-8"}
-          max-w-5xl mx-auto
-        `}
-        >
-          {propertyExperiences.map((experience, index) => (
-            <motion.div
-              key={index}
-              initial={{ opacity: 0, y: 50 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: index * 0.2 }}
-              className="bg-white rounded-2xl p-6 shadow-lg hover:shadow-xl transition-all group"
-            >
-              <div className="mb-4 flex justify-center">
-                <experience.icon className="w-16 h-16 text-blue-600 group-hover:scale-110 transition-transform" />
-              </div>
-              <h3 className="text-2xl font-bold text-center mb-4 text-gray-900">
-                {experience.title}
-              </h3>
-              <p className="text-center text-gray-600">
-                {experience.description}
-              </p>
-            </motion.div>
-          ))}
-        </div>
+          className="absolute top-1/4 -left-20 w-96 h-96 rounded-full bg-blue-500/20 blur-3xl"
+          style={{
+            transform: `translate(${mousePosition.x * 20}px, ${
+              mousePosition.y * 20
+            }px)`,
+          }}
+        />
+        <div
+          className="absolute bottom-1/4 right-0 w-96 h-96 rounded-full bg-purple-500/20 blur-3xl"
+          style={{
+            transform: `translate(${mousePosition.x * -20}px, ${
+              mousePosition.y * -20
+            }px)`,
+          }}
+        />
 
-        <div className="text-center mt-16">
-          <motion.button
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-            className="bg-gradient-to-r from-blue-600 to-purple-600 text-white 
-              px-10 py-4 rounded-full text-lg font-semibold 
-              hover:shadow-xl transition-all"
+        {/* Animated Grid */}
+        <div
+          className="absolute inset-0 bg-[linear-gradient(to_right,#4f4f4f12_1px,transparent_1px),linear-gradient(to_bottom,#4f4f4f12_1px,transparent_1px)]"
+          style={{
+            backgroundSize: "24px 24px",
+            transform: `translate(${mousePosition.x * 5}px, ${
+              mousePosition.y * 5
+            }px)`,
+          }}
+        />
+
+        {/* Glowing Lines */}
+        <div className="absolute inset-0">
+          <div className="absolute top-1/4 left-0 w-full h-px bg-gradient-to-r from-transparent via-blue-500/50 to-transparent" />
+          <div className="absolute top-2/4 left-0 w-full h-px bg-gradient-to-r from-transparent via-purple-500/50 to-transparent" />
+        </div>
+      </div>
+
+      {/* Content */}
+      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-24 pb-16">
+        <div className="text-center space-y-8">
+          {/* Main Heading */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            className="space-y-4"
           >
-            Start Virtual Tour
-          </motion.button>
+            <h1 className="text-5xl md:text-7xl font-bold">
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-600">
+                Transform Your Digital
+              </span>
+              <br />
+              <span className="text-white">Experience Today</span>
+            </h1>
+            <p className="text-xl text-gray-400 max-w-2xl mx-auto">
+              Discover a new dimension of digital interaction with our
+              cutting-edge platform. Experience seamless integration of
+              technology and creativity.
+            </p>
+          </motion.div>
+
+          {/* CTA Buttons */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.2 }}
+            className="flex flex-col sm:flex-row gap-4 justify-center"
+          >
+            <button className="group relative px-8 py-4 bg-gradient-to-r from-blue-600 to-purple-600 rounded-xl text-white font-semibold hover:shadow-lg hover:shadow-blue-500/25 transition-all duration-300">
+              Get Started
+              <ChevronRight className="inline-block ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />
+            </button>
+            <button className="px-8 py-4 bg-white/10 rounded-xl text-white font-semibold backdrop-blur-sm hover:bg-white/20 transition-all duration-300">
+              Watch Demo
+            </button>
+          </motion.div>
         </div>
       </div>
     </section>
   );
 };
 
-export default ARVRRealEstateHero;
+export default HeroSection;
