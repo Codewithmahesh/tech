@@ -2,7 +2,6 @@ import {
   useScroll,
   useTransform,
   motion,
-  useInView,
   useSpring
 } from "framer-motion";
 import React, { useEffect, useRef, useState } from "react";
@@ -17,7 +16,7 @@ export const Timeline = ({ data }: { data: TimelineEntry[] }) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const itemRefs = useRef<(HTMLDivElement | null)[]>([]);
   const [height, setHeight] = useState(0);
-  const [inViewStates, setInViewStates] = useState<boolean[]>([]);
+  const [inViewStates] = useState<boolean[]>([]);
 
   useEffect(() => {
     if (ref.current) {
